@@ -18,3 +18,4 @@ def preprocess_df(train, test, feature_cols, cat_cols):
     """Preprocessing for train and test data"""
     return train, test, feature_cols, cat_cols
 
+print("✅ feature_engineering.py recreated successfully!")

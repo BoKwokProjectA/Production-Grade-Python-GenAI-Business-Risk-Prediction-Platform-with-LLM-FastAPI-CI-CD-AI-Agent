@@ -5,7 +5,7 @@ API Route definitions
 from fastapi import APIRouter, UploadFile, File, HTTPException
 from src.schemas.prediction import PredictionResponse, HealthResponse
 from src.services.prediction_service import PredictionService
-from src.core.config import get_settings  
+from src.core.config import get_settings
 from datetime import datetime
 
 prediction_service = PredictionService()

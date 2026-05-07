@@ -1,4 +1,4 @@
-__pycache__
+__pycache__/
 *.pyc
 *.pyo
 *.pyd
@@ -6,9 +6,8 @@ __pycache__
 env/
 venv/
 .venv/
-.git
+.git/
 .gitignore
-.ipynb_checkpoints
+.ipynb_checkpoints/
 *.ipynb
 logs/
-data/

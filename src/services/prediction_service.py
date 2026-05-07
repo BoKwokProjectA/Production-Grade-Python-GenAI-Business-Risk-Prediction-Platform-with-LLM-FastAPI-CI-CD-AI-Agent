@@ -17,7 +17,7 @@ class PredictionService:
         self.transform = transforms.Compose([
             transforms.Resize((224, 224)),
             transforms.ToTensor(),
-            transforms.Normalize(mean=[0.485, 0.456, 0.406], 
+            transforms.Normalize(mean=[0.485, 0.456, 0.406],
                                std=[0.229, 0.224, 0.225]),
         ])
 
@@ -25,7 +25,7 @@ class PredictionService:
         """Process uploaded image and return prediction"""
         image = Image.open(io.BytesIO(image_bytes)).convert("RGB")
         image_tensor = self.transform(image).unsqueeze(0)
-        
+
         prob = self.engine.predict_single_image(image_tensor)
 
         prediction = "Malignant" if prob > 0.5 else "Benign"
