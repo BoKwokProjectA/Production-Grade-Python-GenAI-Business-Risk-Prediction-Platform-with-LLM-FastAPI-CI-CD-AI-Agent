@@ -12,8 +12,7 @@ class ISICInferenceEngine:
 
     def predict_single_image(self, image_tensor, model=None):
         """Run a prediction on a single image tensor"""
-        if model is None:
-            return 0.42
+
 
         model.eval()
         with torch.no_grad():
