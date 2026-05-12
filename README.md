@@ -1,6 +1,4 @@
-# ISIC 2024 Skin Cancer Detection - Flagship Portfolio Project
-
-## ISIC 2024-Inspired Skin Lesion Prediction API + FastAPI + RAG Assistant + Docker + Google Cloud Run
+# Production-Grade AI Medical Image Risk Prediction Platform with FastAPI, Docker, RAG Assistant, SQLite, Real-Time ML Inference, and MLOps-Oriented Cloud Deployment
 
 ---
 
