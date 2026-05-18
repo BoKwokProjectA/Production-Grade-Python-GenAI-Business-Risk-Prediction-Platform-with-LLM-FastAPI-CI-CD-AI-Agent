@@ -1,4 +1,4 @@
-# Prompt Review Checklist 
+# Prompt Review Checklist
 
 - [ ] Does the prompt clearly forbid medical diagnosis/advice?
 - [ ] Does it reference only real capabilities of the platform?

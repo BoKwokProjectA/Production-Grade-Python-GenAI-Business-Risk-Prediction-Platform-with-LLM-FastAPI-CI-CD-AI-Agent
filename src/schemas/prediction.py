@@ -1,7 +1,6 @@
 """
 Pydantic schemas for API requests and responses
 """
-
 from pydantic import BaseModel, Field
 from datetime import datetime
 from typing import Optional
@@ -15,9 +14,9 @@ class PredictionResponse(BaseModel):
     prediction: str
     model_version: str
     timestamp: datetime
+    review_triggered: bool = False   
 
 class HealthResponse(BaseModel):
     status: str
     model_version: str
     api_version: str
-

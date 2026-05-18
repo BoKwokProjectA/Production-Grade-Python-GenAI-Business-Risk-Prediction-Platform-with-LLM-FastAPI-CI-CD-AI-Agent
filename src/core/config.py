@@ -1,6 +1,4 @@
-"""
-Core configuration
-"""
+""" Core configuration """
 
 from pydantic_settings import BaseSettings
 from functools import lru_cache
@@ -11,6 +9,7 @@ class Settings(BaseSettings):
     MODEL_VERSION: str = "2024-ensemble-v1"
     DEBUG: bool = True
     DATABASE_URL: str = "sqlite+aiosqlite:///./isic.db"
+    POWER_AUTOMATE_URL: str = ""
     NGROK_AUTHTOKEN: str = ""
     SECRET_KEY: str = "super-secret-key-change-in-production"
 
@@ -18,9 +17,6 @@ class Settings(BaseSettings):
         env_file = ".env"
         env_file_encoding = "utf-8"
 
-
 @lru_cache()
 def get_settings() -> Settings:
     return Settings()
-
-
