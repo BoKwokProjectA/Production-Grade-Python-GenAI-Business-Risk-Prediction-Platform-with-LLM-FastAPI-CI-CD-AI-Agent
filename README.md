@@ -1,4 +1,4 @@
-# Production-Grade AI Medical Image Risk Prediction Platform with FastAPI, Docker, RAG Assistant, SQLite, Real-Time ML Inference, and MLOps-Oriented Cloud Deployment
+# Production-Grade AI Medical Image Risk Prediction Platform with FastAPI, Docker, RAG Assistant, SQLite-ready, Real-Time ML Inference, and MLOps-Oriented Cloud Deployment
 
 ## Overview
 
