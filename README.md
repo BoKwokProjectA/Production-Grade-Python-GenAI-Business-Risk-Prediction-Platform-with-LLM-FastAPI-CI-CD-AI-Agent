@@ -30,7 +30,7 @@ Deployment note: this project is deployed with Docker on Google Cloud Run. The A
 - Added clean architecture, structured logging, health checks, Pydantic schemas, and environment-based configuration
 - Configured Cloud Run with warm instance support using `--min-instances 1` for live demo readiness
 - Demonstrates the full ML application lifecycle: notebook experimentation, real-time inference API design, Docker packaging, cloud deployment, API documentation, observability, and safety boundaries
-- Added prompt/versioning and evaluation artefacts for safer AI assistant development, while keeping unfinished Copilot/automation work out of the public project claims
+- Added prompt/versioning and evaluation artefacts for safer AI assistant development
 
 ## 📁 Project Structure
 
@@ -133,7 +133,7 @@ This ensemble approach provides a good balance between accuracy and inference sp
 
 ### AI Safety, Prompt Versioning, and Evaluation Artefacts
 
-The updated project notebooks also introduce supporting artefacts for safe AI-assistant development. These are included as portfolio evidence of responsible AI engineering practices, not as a claim of a completed Copilot integration.
+The updated project notebooks also introduce supporting artefacts for safe AI-assistant development.
 
 **Prompt Versioning:** Includes system prompt versions, safety-focused prompt updates, a prompt changelog, and a review checklist.
 
@@ -316,8 +316,6 @@ These files demonstrate that the project considers:
 - Hallucination and safety testing
 - Prompt review and changelog discipline
 - Governance documentation suitable for professional AI workflows
-
-Unfinished Copilot and Power Automate integration work is intentionally not presented as a completed feature.
 
 ## 🏆 Achievements
 
