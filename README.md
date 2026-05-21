@@ -1,4 +1,4 @@
-# Production-Grade AI Medical Image Risk Prediction Platform with FastAPI, Docker, RAG Assistant, Power Automate Workflow Automation, SQLite, Real-Time ML Inference, and MLOps-Oriented Cloud Deployment
+# Production-Grade AI Medical Image Risk Prediction Platform with FastAPI, Docker, RAG Assistant, Microsoft Copilot Studio AI Agent, Microsoft Power Automate Workflow Automation, SQLAlchemy, Real-Time ML Inference, and MLOps-Oriented Google Cloud Run Deployment
 
 ## Overview
 
@@ -6,11 +6,11 @@ This project turns an ISIC 2024 skin cancer detection research workflow into a d
 
 Users can upload a skin lesion image through a FastAPI backend and receive a malignant/benign risk prediction from a two-model vision ensemble using ConvNeXt and EVA-02. The API is containerized with Docker, deployed on Google Cloud Run, and includes interactive Swagger documentation, health checks, structured logging, clean backend architecture, and a retrieval-based RAG assistant for project/codebase Q&A.
 
+This repository is presented as a job-application portfolio project for machine learning engineering, AI engineering, automation engineering, backend engineering, and MLOps-oriented roles. It demonstrates the ability to move from notebook experimentation to a deployed API, design production-style software architecture, package an ML system with Docker, connect the backend to a working Power Platform/Copilot Studio workflow, deploy to cloud infrastructure, and document safety and governance decisions clearly.
+
 The goal of this project is not only to build a model inference endpoint, but to demonstrate how machine learning research code can be transformed into a real backend system that is easier to deploy, document, monitor, and extend.
 
-This repository is presented as a job-application portfolio project for machine learning engineering, AI engineering, automation engineering, backend engineering, and MLOps-oriented roles. It demonstrates the ability to move from notebook experimentation to a deployed API, design production-style software architecture, package an ML system with Docker, connect the backend to a working Power Automate workflow, deploy to cloud infrastructure, and document technical decisions clearly.
-
-## 🚀 Live Demo
+## Live Demo
 
 Live API: https://isic-api-918647643601.europe-west2.run.app  
 Interactive Swagger Docs: https://isic-api-918647643601.europe-west2.run.app/docs  
@@ -19,7 +19,7 @@ Health Check: https://isic-api-918647643601.europe-west2.run.app/api/v1/health
 
 Deployment note: this project is deployed with Docker on Google Cloud Run. The API was verified through Cloud Run logs showing successful `200 OK` responses for `/`, `/docs`, and `/openapi.json`.
 
-## ✨ Project Highlights
+## Project Highlights
 
 - Built upon the 1st/2nd place winning solution concept of the ISIC 2024 Skin Cancer Detection Challenge
 - Transformed a Kaggle / notebook-based workflow into a production-oriented backend system
@@ -32,8 +32,10 @@ Deployment note: this project is deployed with Docker on Google Cloud Run. The A
 - Demonstrates the full ML application lifecycle: notebook experimentation, real-time inference API design, Docker packaging, cloud deployment, Power Automate workflow integration, API documentation, observability, and safety boundaries
 - Added prompt/versioning, evaluation, governance, and Power Automate workflow artefacts for safer AI assistant and automation development
 - Integrated a working Power Automate workflow with the Dockerized FastAPI backend to demonstrate practical AI automation around the deployed API
+- Added a Python 3.11 slim Dockerfile, pinned deployment requirements, .dockerignore, Google Cloud project configuration, Secret Manager IAM binding, and a reproducible Cloud Run deploy command.
+- Added a Copilot Studio support-agent package with OpenAPI 2.0 custom connector, technical support topics, SharePoint knowledge pack packaging, manual test cases, and portfolio evidence checklist.
 
-## 📁 Project Structure
+## Project Structure
 
 ```text
 src/
@@ -71,7 +73,7 @@ automation/               # Power Automate workflow notes and integration assets
 **Notebook Development:** Google Colab  
 **AI Safety / Evaluation Artefacts:** Prompt changelog, prompt review checklist, golden cases, hallucination tests, safety tests, governance documents
 
-## 🚀 Key Features
+## Key Features
 
 ### Core ML Capabilities
 
@@ -124,6 +126,10 @@ This ensemble approach provides a good balance between accuracy and inference sp
 
 **Environment Configuration:** Uses `.env` with fields such as `APP_NAME`, `API_VERSION`, `MODEL_VERSION`, `DEBUG`, `DATABASE_URL`, and `SECRET_KEY`.
 
+**Copilot Support Schemas:** CopilotSupportRequest validates question, conversation_id, and user_role; CopilotSupportResponse returns answer, intent, risk_level, automation_allowed, escalation_required, sources, and safety_note.
+
+**Support Service Intent Routing:** Copilot Support Service classifies requests as api_support, and image_upload_support.
+
 ### Intelligent RAG Assistant
 
 **Project-Aware Retrieval Assistant:** Retrieves relevant project source-code context for technical Q&A.
@@ -134,9 +140,12 @@ This ensemble approach provides a good balance between accuracy and inference sp
 
 **Chat Endpoint:** `/api/v1/chat` accepts a question and returns retrieved project context.
 
-### AI Agent, Automation, Prompt Versioning, and Evaluation Artefacts
-The updated project notebooks introduce a technical AI support agent, Power Automate workflow integration, and supporting artefacts for safer AI-assistant development. These are included as portfolio evidence of responsible AI engineering and practical automation integration.
-**AI Support Agent:** Provides technical support around the platform, API behaviour, upload flow, prediction response format, governance process, and safety limitations.
+### Microsoft Copilot Studio AI Agent, Power Platform Connector, and Safety Behaviour
+
+The Copilot Studio notebook creates a technical-support-only support agent for the Skin Lesion Platform. The agent can explain API usage, image upload steps, probability scores, failed uploads, governance, and medical safety boundaries. It must not diagnose, classify, or interpret a user's lesion.
+
+The updated project notebooks introduce a technical AI agent, Power Automate workflow integration, and supporting artefacts for safer AI-assistant development. These are included as portfolio evidence of responsible AI engineering and practical automation integration.
+**AI Agent:** Provides technical support around the platform, API behaviour, upload flow, prediction response format, governance process, and safety limitations.
 **Power Automate Integration:** Connects a working Power Automate workflow to the Dockerized FastAPI backend, showing how the deployed API can be used inside a low-code automation flow.
 **Prompt Versioning:** Includes system prompt versions, safety-focused prompt updates, a prompt changelog, and a review checklist.
 
@@ -146,7 +155,10 @@ The updated project notebooks introduce a technical AI support agent, Power Auto
 
 **Governance Documentation:** Includes an action tier model, medical AI safety policy, human-in-the-loop policy, security architecture notes, edge case register, and classification canon.
 
+**Medical safety rule:** if the user asks for diagnosis, treatment, or lesion interpretation, the agent refuses and redirects the user to a qualified clinician while still offering technical platform information.
+
 These artefacts show how the project combines safer assistant behaviour, evaluation gates, governance practices, and a working automation workflow without presenting the system as a medical decision-making tool.
+
 ### Production & Observability
 
 **SQLite-Ready Persistence Layer:** SQLAlchemy model and repository structure are prepared for future prediction history storage.
@@ -180,7 +192,7 @@ These artefacts show how the project combines safer assistant behaviour, evaluat
 **Full ML Application Lifecycle:** Documents how the work moves from notebook experimentation into a deployed API with clear review points across model inference, backend architecture, deployment, automation integration, monitoring readiness, and safety.
 
 
-## 🔌 API Endpoints
+## API Endpoints
 
 | Method | Endpoint | Description |
 |---|---|---|
@@ -191,7 +203,7 @@ These artefacts show how the project combines safer assistant behaviour, evaluat
 | POST | `/api/v1/predict` | Upload a skin lesion image and receive prediction results |
 | POST | `/api/v1/chat` | Ask the RAG assistant about the project/codebase |
 
-## 🧠 Prediction Response Example
+## Prediction Response Example
 
 ```json
 {
@@ -203,7 +215,7 @@ These artefacts show how the project combines safer assistant behaviour, evaluat
 }
 ```
 
-## 🤖 RAG Assistant Example
+## RAG Assistant Example
 
 Request:
 
@@ -221,7 +233,35 @@ Response:
 }
 ```
 
-## 🐳 Docker
+## Microsoft Copilot Studio AI Agent Example
+
+Request:
+```json
+{
+  "question": "Is this lesion cancer?",
+  "conversation_id": "copilot-live-test-001",
+  "user_role": "user"
+}
+```
+
+Response:
+```json
+{
+  "answer": "I can help with technical questions about the Skin Lesion Platform... I cannot interpret a lesion, confirm whether it is cancer, decide whether it is benign or malignant, or recommend treatment. For medical concerns, please speak with a qualified clinician.",
+  "intent": "medical_advice",
+  "risk_level": "Prohibited",
+  "automation_allowed": false,
+  "escalation_required": true,
+  "sources": [
+    "governance/medical_ai_safety_policy.md",
+    "governance/action_tier_model.md",
+    "governance/human_in_the_loop_policy.md"
+  ],
+  "safety_note": "Medical diagnosis, lesion interpretation, and treatment advice are outside the agent's allowed scope."
+}
+```
+
+## Docker
 
 The project is containerized with Docker and deployed successfully on Google Cloud Run. The Dockerfile runs the FastAPI app on port `8080`.
 
@@ -238,15 +278,21 @@ Container startup command:
 uvicorn src.api.main:app --host 0.0.0.0 --port ${PORT:-8080}
 ```
 
+Requirements include FastAPI 0.115.2, Uvicorn 0.32.0, Pydantic 2.9.2, SQLAlchemy 2.0.35, pandas 2.2.2, numpy 1.26.4, pillow 10.4.0, timm 1.0.11, LightGBM 4.5.0, CatBoost 1.2.7, XGBoost 2.1.1, scikit-learn 1.5.2, LangChain 0.3.4, FAISS CPU 1.8.0.post1, Sentence Transformers 3.1.1, python-multipart 0.0.9, httpx 0.27.2, and structlog 24.4.0.
+
 For Google Cloud Run, the container uses the platform-provided `PORT` environment variable. The deployment can be kept warm with `--min-instances 1` for live demo readiness.
 
-## ⚡ Power Automate Workflow Integration
 
-The project includes a working Power Automate workflow integrated with the Dockerized FastAPI backend. This demonstrates that the deployed API can be used not only through Swagger or direct HTTP requests, but also through low-code automation tooling.
+
+## Power Automate Workflow and Copilot Studio Integration
+
+The project includes a Power Platform custom connector and Copilot Studio technical support-agent integration connected to the Dockerized FastAPI backend. The backend also accepts a POWER_AUTOMATE_URL secret, so a Power Automate webhook can be configured safely through Google Secret Manager.
 
 The automation layer is presented as practical AI workflow automation around the backend. It does not automate medical diagnosis, treatment advice, or clinical decision-making.
 
-## ☁️ Google Cloud Run Deployment
+**Copilot Studio setup:** create an agent named Skin Lesion Platform AI Agent, describe it as technical support only, add the knowledge source, import the custom connector, add the support action, add the three support topics, run the manual tests, and publish only after safety checks pass.
+
+## Google Cloud Run Deployment
 
 The API is deployed on Google Cloud Run using Docker and Google Cloud Build source deployment.
 
@@ -272,11 +318,12 @@ gcloud run deploy isic-api \
   --port 8080 \
   --cpu-boost \
   --set-secrets POWER_AUTOMATE_URL=power-automate-url:latest \
+  --project isic-flagship-project
 ```
 
 Note: This project currently uses Cloud Run source deployment. A fully automated CI/CD pipeline, such as GitHub Actions or Cloud Build triggers on every Git push, is not claimed in this README.
 
-## ⚙️ Environment Variables
+## Environment Variables
 
 Example `.env` / `.env.example`:
 
@@ -290,7 +337,15 @@ SECRET_KEY=change-this-in-google-cloud-run
 POWER_AUTOMATE_URL=your-power-automate-webhook-url
 ```
 
-## 🧪 Evaluation and Safety Artefacts
+## Copilot Studio Knowledge Sources and Topics
+
+The Copilot Studio notebook creates these topic files under copilot_studio/topics/: upload_image.md, prediction_endpoint.md, and medical_safety.md.
+
+Required/target knowledge documents include README.md, prompts/v1_system_prompt.md, prompts/v2_safety_prompt.md, prompts/prompt_changelog.md, governance/action_tier_model.md, governance/classification_canon.md, governance/human_in_the_loop_policy.md, governance/medical_ai_safety_policy.md, and governance/security_architecture.md.
+
+knowledge pack packaging copied README.md, Copilot Studio README/setup/topic files, prompt files, and governance files into copilot_studio/knowledge_pack/.
+
+## Evaluation and Safety Artefacts
 
 The updated notebook workflow includes evaluation and governance files that support responsible AI development:
 
@@ -328,7 +383,7 @@ These files demonstrate that the project considers:
 - Governance documentation suitable for professional AI workflows
 - Power Automate workflow integration is presented as a working automation layer connected to the Dockerized backend. The AI agent remains scoped to technical support and safety-aware platform guidance, not medical diagnosis or treatment advice.
 
-## 🏆 Achievements
+## Achievements
 
 - Transformed an ISIC 2024-inspired notebook workflow into a deployed ML inference API
 - Deployed a working FastAPI backend on Google Cloud Run with Docker
@@ -340,7 +395,10 @@ These files demonstrate that the project considers:
 - Added prompt-versioning, safety-test, and governance artefacts to show responsible AI engineering practice
 - Integrated a working Power Automate workflow with the Dockerized FastAPI backend to demonstrate practical AI automation
 - Added technical AI support agent endpoints with safety-aware responses for platform, API, workflow, and governance questions
+- Added a Copilot Studio AI agent package with OpenAPI custom connector, technical support topics, knowledge-pack packaging, and setup/evidence checklists.
+- Added Validated support-agent health and safety refusal behaviour against the live Cloud Run endpoint.
 
-## ⚠️ Medical Disclaimer
+
+## Medical Disclaimer
 
 This project is for educational and research purposes only. It is intended only to demonstrate AI-assisted initial screening support. It is not a medical device and should not be used for diagnosis, treatment, or clinical decision-making. Please consult a qualified healthcare professional for further evaluation.
