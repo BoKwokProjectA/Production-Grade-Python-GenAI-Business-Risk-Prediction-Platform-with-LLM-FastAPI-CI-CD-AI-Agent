@@ -16,6 +16,9 @@ Live API: https://isic-api-918647643601.europe-west2.run.app
 Interactive Swagger Docs: https://isic-api-918647643601.europe-west2.run.app/docs  
 OpenAPI Schema: https://isic-api-918647643601.europe-west2.run.app/openapi.json  
 Health Check: https://isic-api-918647643601.europe-west2.run.app/api/v1/health
+<img width="1600" height="706" alt="1" src="https://github.com/user-attachments/assets/81975874-c9f3-491c-a41e-265be10b2ee3" />
+<img width="1600" height="701" alt="2" src="https://github.com/user-attachments/assets/770165ea-d25e-4465-9ea5-e428a63267a6" />
+<img width="1600" height="698" alt="3" src="https://github.com/user-attachments/assets/5ed0d5d9-79e6-490c-a8ba-f7f548922d63" />
 
 Deployment note: this project is deployed with Docker on Google Cloud Run. The API was verified through Cloud Run logs showing successful `200 OK` responses for `/`, `/docs`, and `/openapi.json`.
 
@@ -60,7 +63,7 @@ agent_evaluation/         # Golden cases, hallucination checks, and safety tests
 automation/               # Power Automate workflow notes and integration assets
 ```
 
-## 🏗️ Tech Stack
+## Tech Stack
 
 **Backend:** FastAPI, Uvicorn, Pydantic  
 **ML:** PyTorch, TorchVision, Timm, scikit-learn  
