@@ -16,6 +16,9 @@ Live API: https://isic-api-918647643601.europe-west2.run.app
 Interactive Swagger Docs: https://isic-api-918647643601.europe-west2.run.app/docs  
 OpenAPI Schema: https://isic-api-918647643601.europe-west2.run.app/openapi.json  
 Health Check: https://isic-api-918647643601.europe-west2.run.app/api/v1/health
+Copilot Studio Demo Website: https://copilotstudio.microsoft.com/environments/Default-3963fbd2-2446-49b2-b256-85f442a969ae/bots/cr3a2_SkinLesionPlatformSupportAgent_Demo/canvas?__version__=2&enableFileAttachment=true
+The demo website includes an embedded Microsoft Copilot Studio technical support agent. Users can ask platform-support questions about API usage, image upload flow, prediction response format, governance, and safety boundaries directly from the website.
+
 <img width="1600" height="706" alt="1" src="https://github.com/user-attachments/assets/81975874-c9f3-491c-a41e-265be10b2ee3" />
 <img width="1600" height="701" alt="2" src="https://github.com/user-attachments/assets/770165ea-d25e-4465-9ea5-e428a63267a6" />
 <img width="1600" height="698" alt="3" src="https://github.com/user-attachments/assets/5ed0d5d9-79e6-490c-a8ba-f7f548922d63" />
@@ -37,6 +40,7 @@ Deployment note: this project is deployed with Docker on Google Cloud Run. The A
 - Integrated a working Power Automate workflow with the Dockerized FastAPI backend to demonstrate practical AI automation around the deployed API
 - Added a Python 3.11 slim Dockerfile, pinned deployment requirements, .dockerignore, Google Cloud project configuration, Secret Manager IAM binding, and a reproducible Cloud Run deploy command.
 - Added a Copilot Studio support-agent package with OpenAPI 2.0 custom connector, technical support topics, SharePoint knowledge pack packaging, manual test cases, and portfolio evidence checklist.
+- Activated a Microsoft Copilot Studio technical support agent inside the live demo website, enabling users to ask platform-support questions through an embedded web chat experience.
 
 ## Project Structure
 
@@ -143,9 +147,13 @@ This ensemble approach provides a good balance between accuracy and inference sp
 
 **Chat Endpoint:** `/api/v1/chat` accepts a question and returns retrieved project context.
 
-### Microsoft Copilot Studio AI Agent, Power Platform Connector, and Safety Behaviour
+### Microsoft Copilot Studio AI Agent, Demo Website Integration, Power Platform Connector, and Safety Behaviour
 
 The Copilot Studio notebook creates a technical-support-only support agent for the Skin Lesion Platform. The agent can explain API usage, image upload steps, probability scores, failed uploads, governance, and medical safety boundaries. It must not diagnose, classify, or interpret a user's lesion.
+
+The Copilot Studio agent is also activated in the live demo website as an embedded technical-support chat experience. The agent is scoped to project and platform support only. It can explain API usage, image upload requirements, prediction response fields, failed upload troubleshooting, workflow behaviour, governance documents, and safety limitations.
+
+The agent does not provide medical diagnosis, lesion interpretation, treatment advice, or clinical decision-making. Medical questions are refused with a safety-focused redirect to a qualified clinician.
 
 The updated project notebooks introduce a technical AI agent, Power Automate workflow integration, and supporting artefacts for safer AI-assistant development. These are included as portfolio evidence of responsible AI engineering and practical automation integration.
 **AI Agent:** Provides technical support around the platform, API behaviour, upload flow, prediction response format, governance process, and safety limitations.
@@ -295,6 +303,8 @@ The automation layer is presented as practical AI workflow automation around the
 
 **Copilot Studio setup:** create an agent named Skin Lesion Platform AI Agent, describe it as technical support only, add the knowledge source, import the custom connector, add the support action, add the three support topics, run the manual tests, and publish only after safety checks pass.
 
+The Copilot Studio agent has been activated in the live demo website, allowing users to interact with the support agent through an embedded web chat interface. This demonstrates a working end-user AI support layer on top of the deployed FastAPI backend and Power Platform integration.
+
 ## Google Cloud Run Deployment
 
 The API is deployed on Google Cloud Run using Docker and Google Cloud Build source deployment.
@@ -400,6 +410,7 @@ These files demonstrate that the project considers:
 - Added technical AI support agent endpoints with safety-aware responses for platform, API, workflow, and governance questions
 - Added a Copilot Studio AI agent package with OpenAPI custom connector, technical support topics, knowledge-pack packaging, and setup/evidence checklists.
 - Added Validated support-agent health and safety refusal behaviour against the live Cloud Run endpoint.
+- Activated the Copilot Studio support agent inside the live demo website, demonstrating a working end-user AI support experience connected to the deployed platform.
 
 
 ## Medical Disclaimer
