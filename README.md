@@ -15,11 +15,9 @@ The goal of this project is not only to build a model inference endpoint, but to
 Live API: https://isic-api-918647643601.europe-west2.run.app  
 Interactive Swagger Docs: https://isic-api-918647643601.europe-west2.run.app/docs  
 OpenAPI Schema: https://isic-api-918647643601.europe-west2.run.app/openapi.json  
-Health Check: https://isic-api-918647643601.europe-west2.run.app/api/v1/health
-
-Power Automation Demonstration: https://youtu.be/QUAovVvRWbs
-
-Copilot Studio Demo Website: https://copilotstudio.microsoft.com/environments/Default-3963fbd2-2446-49b2-b256-85f442a969ae/bots/cr3a2_SkinLesionPlatformSupportAgent_Demo/canvas?__version__=2&enableFileAttachment=true
+Health Check: https://isic-api-918647643601.europe-west2.run.app/api/v1/health  
+Power Automation Demonstration: https://youtu.be/QUAovVvRWbs  
+Copilot Studio Demo Website: https://copilotstudio.microsoft.com/environments/Default-3963fbd2-2446-49b2-b256-85f442a969ae/bots/cr3a2_SkinLesionPlatformSupportAgent_Demo/canvas  
 The demo website includes an embedded Microsoft Copilot Studio technical support agent. Users can ask platform-support questions about API usage, image upload flow, prediction response format, governance, and safety boundaries directly from the website.
 
 <img width="1600" height="706" alt="1" src="https://github.com/user-attachments/assets/81975874-c9f3-491c-a41e-265be10b2ee3" />
