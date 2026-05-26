@@ -16,7 +16,9 @@ Live API: https://isic-api-918647643601.europe-west2.run.app
 Interactive Swagger Docs: https://isic-api-918647643601.europe-west2.run.app/docs  
 OpenAPI Schema: https://isic-api-918647643601.europe-west2.run.app/openapi.json  
 Health Check: https://isic-api-918647643601.europe-west2.run.app/api/v1/health
+
 Power Automation Demonstration: https://youtu.be/QUAovVvRWbs
+
 Copilot Studio Demo Website: https://copilotstudio.microsoft.com/environments/Default-3963fbd2-2446-49b2-b256-85f442a969ae/bots/cr3a2_SkinLesionPlatformSupportAgent_Demo/canvas?__version__=2&enableFileAttachment=true
 The demo website includes an embedded Microsoft Copilot Studio technical support agent. Users can ask platform-support questions about API usage, image upload flow, prediction response format, governance, and safety boundaries directly from the website.
 
