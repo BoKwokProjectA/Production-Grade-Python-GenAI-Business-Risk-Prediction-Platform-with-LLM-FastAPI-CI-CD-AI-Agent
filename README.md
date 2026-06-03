@@ -1,5 +1,4 @@
-# Production-Grade AI Medical Image Risk Prediction Platform with FastAPI, Docker, RAG Assistant, Microsoft Copilot Studio AI Agent, Microsoft Power Automate Workflow Automation, SQLAlchemy, Real-Time ML Inference, and MLOps-Oriented Google Cloud Run Deployment
-
+# Production-Grade AI Medical Image Risk Prediction Platform with FastAPI, Docker, RAG Assistant, Microsoft Copilot Studio AI Agent, SharePoint Knowledge Source, Microsoft Power Automate Workflow Automation, SQLAlchemy, Real-Time ML Inference, and MLOps-Oriented Google Cloud Run Deployment
 ## Overview
 
 This project turns an ISIC 2024 skin cancer detection research workflow into a deployed, production-style machine learning API.
@@ -42,6 +41,7 @@ Deployment note: this project is deployed with Docker on Google Cloud Run. The A
 - Added a Python 3.11 slim Dockerfile, pinned deployment requirements, .dockerignore, Google Cloud project configuration, Secret Manager IAM binding, and a reproducible Cloud Run deploy command.
 - Added a Copilot Studio support-agent package with OpenAPI 2.0 custom connector, technical support topics, SharePoint knowledge pack packaging, manual test cases, and portfolio evidence checklist.
 - Activated a Microsoft Copilot Studio technical support agent inside the live demo website, enabling users to ask platform-support questions through an embedded web chat experience.
+- Added Microsoft SharePoint as a structured knowledge-document source for the Copilot Studio support agent, using converted PDF knowledge documents for project grounding, governance references, safety boundaries, and technical support Q&A.
 
 ## Project Structure
 
@@ -56,6 +56,11 @@ src/
 ├── schemas/              # Pydantic request/response models
 ├── services/             # Business logic
 └── __init__.py
+
+copilot_studio/
+├── openapi/              # OpenAPI custom connector definition for Copilot Studio
+├── topics/               # Copilot Studio support topic markdown files
+└── sharepoint_knowledge_pack/ # Files prepared for SharePoint knowledge upload
 
 notebooks/                # Development & refactoring notebooks
 configs/                  # Configuration files
@@ -77,6 +82,7 @@ power_automate/               # Power Automate workflow notes and integration as
 **Database Layer:** SQLAlchemy, SQLite-ready repository layer  
 **Deployment:** Docker, Google Cloud Run, Google Cloud Build
 **AI Automation:** Power Automate workflow integrated with the Dockerized FastAPI backend
+**Microsoft 365 Knowledge Source:** SharePoint document library used to store Copilot Studio knowledge documents as PDF-based grounding material  
 **Logging & Config:** structlog, Pydantic Settings  
 **Notebook Development:** Google Colab  
 **AI Safety / Evaluation Artefacts:** Prompt changelog, prompt review checklist, golden cases, hallucination tests, safety tests, governance documents
@@ -156,6 +162,10 @@ The Copilot Studio agent is also activated in the live demo website as an embedd
 
 The agent does not provide medical diagnosis, lesion interpretation, treatment advice, or clinical decision-making. Medical questions are refused with a safety-focused redirect to a qualified clinician.
 
+**SharePoint Knowledge Source:** The Copilot Studio support agent uses a Microsoft SharePoint document library as its knowledge source. Project support and governance documents were converted into PDF format and uploaded to SharePoint so the agent can ground answers in maintained documentation about API usage, image uploads, probability scores, failed-upload troubleshooting, action tiers, human-in-the-loop review, security architecture, and medical safety boundaries.
+
+The SharePoint knowledge source is used only for technical and operational platform support. It is not used to provide medical diagnosis, treatment advice, or lesion interpretation.
+
 The updated project notebooks introduce a technical AI agent, Power Automate workflow integration, and supporting artefacts for safer AI-assistant development. These are included as portfolio evidence of responsible AI engineering and practical automation integration.
 **AI Agent:** Provides technical support around the platform, API behaviour, upload flow, prediction response format, governance process, and safety limitations.
 **Power Automate Integration:** Connects a working Power Automate workflow to the Dockerized FastAPI backend, showing how the deployed API can be used inside a low-code automation flow.
@@ -214,6 +224,8 @@ These artefacts show how the project combines safer assistant behaviour, evaluat
 | GET | `/api/v1/health` | Health check with API and model version |
 | POST | `/api/v1/predict` | Upload a skin lesion image and receive prediction results |
 | POST | `/api/v1/chat` | Ask the RAG assistant about the project/codebase |
+| GET | `/api/v1/agent/health` | Health check for the Copilot Studio support-agent connector |
+| POST | `/api/v1/agent/support` | Custom connector endpoint used by Copilot Studio to answer technical support questions |
 
 ## Prediction Response Example
 
@@ -300,6 +312,8 @@ For Google Cloud Run, the container uses the platform-provided `PORT` environmen
 
 The project includes a Power Platform custom connector and Copilot Studio technical support-agent integration connected to the Dockerized FastAPI backend. The backend also accepts a POWER_AUTOMATE_URL secret, so a Power Automate webhook can be configured safely through Google Secret Manager.
 
+The Copilot Studio agent is also connected to a SharePoint knowledge source containing PDF versions of the project support and governance documents. This gives the agent a maintained document source for technical support answers while keeping the medical safety boundary explicit.
+
 The automation layer is presented as practical AI workflow automation around the backend. It does not automate medical diagnosis, treatment advice, or clinical decision-making.
 
 **Copilot Studio setup:** create an agent named Skin Lesion Platform AI Agent, describe it as technical support only, add the knowledge source, import the custom connector, add the support action, add the six support topics, run the manual tests, and publish only after safety checks pass.
@@ -357,7 +371,18 @@ The Copilot Studio notebook creates these six topic files under copilot_studio/t
 
 Required/target knowledge documents include README.md, prompts/v1_system_prompt.md, prompts/v2_safety_prompt.md, prompts/prompt_changelog.md, governance/action_tier_model.md, governance/classification_canon.md, governance/human_in_the_loop_policy.md, governance/medical_ai_safety_policy.md, and governance/security_architecture.md.
 
-knowledge pack packaging copied README.md, Copilot Studio README/setup/topic files, prompt files, and governance files into copilot_studio/sharepoint_knowledge_pack/.
+The knowledge pack packaging process copies README, Copilot Studio setup/topic files, prompt files, and governance files into `copilot_studio/sharepoint_knowledge_pack/`. These documents are then converted or exported into PDF format where needed and uploaded to a SharePoint document library for use as Copilot Studio knowledge sources.
+
+The SharePoint knowledge documents include platform-support material for:
+
+- Prediction endpoint usage
+- Image upload steps and failed-upload troubleshooting
+- Probability score explanation
+- Governance and action tiers
+- Human-in-the-loop review policy
+- Medical AI safety policy
+- Security architecture
+- Prompt versioning and safety rules
 
 ## Evaluation and Safety Artefacts
 
@@ -412,6 +437,7 @@ These files demonstrate that the project considers:
 - Added a Copilot Studio AI agent package with OpenAPI custom connector, technical support topics, knowledge-pack packaging, and setup/evidence checklists.
 - Added Validated support-agent health and safety refusal behaviour against the live Cloud Run endpoint.
 - Activated the Copilot Studio support agent inside the live demo website, demonstrating a working end-user AI support experience connected to the deployed platform.
+- Added a SharePoint-based Copilot Studio knowledge source using PDF versions of project documentation, governance files, safety policies, and support-topic material.
 
 
 ## Medical Disclaimer
