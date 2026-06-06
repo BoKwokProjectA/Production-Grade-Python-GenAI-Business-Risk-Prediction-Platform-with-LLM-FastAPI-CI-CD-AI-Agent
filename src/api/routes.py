@@ -4,12 +4,11 @@ API routes for skin lesion prediction.
 
 from datetime import datetime
 
-from fastapi import APIRouter, UploadFile, File, HTTPException
+from fastapi import APIRouter, File, HTTPException, UploadFile
 
 from src.core.config import get_settings
-from src.schemas.prediction import PredictionResponse, HealthResponse
+from src.schemas.prediction import HealthResponse, PredictionResponse
 from src.services.prediction_service import PredictionService
-
 
 settings = get_settings()
 
@@ -29,7 +28,7 @@ async def health_check():
 
 
 @prediction_router.post(
-    "/Predict",
+    "/predict",
     response_model=PredictionResponse,
     summary="Expand the block to predict skin lesion risk",
     description="""

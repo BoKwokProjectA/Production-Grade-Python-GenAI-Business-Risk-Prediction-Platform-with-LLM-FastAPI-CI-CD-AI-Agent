@@ -2,11 +2,13 @@
 Database models for storing prediction records
 """
 
-from sqlalchemy import Column, Integer, String, Float, DateTime, Text
-from sqlalchemy.ext.declarative import declarative_base
 from datetime import datetime
 
+from sqlalchemy import Column, DateTime, Float, Integer, String
+from sqlalchemy.ext.declarative import declarative_base
+
 Base = declarative_base()
+
 
 class PredictionRecord(Base):
     __tablename__ = "predictions"
@@ -19,4 +21,3 @@ class PredictionRecord(Base):
     timestamp = Column(DateTime, default=datetime.utcnow)
     image_filename = Column(String, nullable=True)
     user_feedback = Column(String, nullable=True)
-

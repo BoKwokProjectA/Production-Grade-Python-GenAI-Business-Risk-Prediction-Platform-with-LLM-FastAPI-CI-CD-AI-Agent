@@ -2,14 +2,16 @@
 Ensemble inference for ISIC 2024 skin lesion prediction.
 """
 
-import torch
-import timm
-import numpy as np
-from PIL import Image
-import torchvision.transforms as T
 from pathlib import Path
 
+import numpy as np
+import timm
+import torch
+import torchvision.transforms as T
+from PIL import Image
+
 PROJECT_ROOT = Path("/content/drive/MyDrive/isic-flagship-project")
+
 
 class ISICEnsembleEngine:
     def __init__(self):
@@ -23,21 +25,33 @@ class ISICEnsembleEngine:
             return
         print("Loading 2 real models (ConvNeXt + EVA-02)...")
 
-        model1 = timm.create_model('convnext_small', pretrained=True, num_classes=2)
+        model1 = timm.create_model("convnext_small", pretrained=True, num_classes=2)
         model1 = model1.to(self.device).eval()
         self.models.append(model1)
-        self.transforms.append(T.Compose([
-            T.Resize(384), T.CenterCrop(384), T.ToTensor(),
-            T.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
-        ]))
+        self.transforms.append(
+            T.Compose(
+                [
+                    T.Resize(384),
+                    T.CenterCrop(384),
+                    T.ToTensor(),
+                    T.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
+                ]
+            )
+        )
 
-        model2 = timm.create_model('eva02_small_patch14_336', pretrained=True, num_classes=2)
+        model2 = timm.create_model("eva02_small_patch14_336", pretrained=True, num_classes=2)
         model2 = model2.to(self.device).eval()
         self.models.append(model2)
-        self.transforms.append(T.Compose([
-            T.Resize(336), T.CenterCrop(336), T.ToTensor(),
-            T.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
-        ]))
+        self.transforms.append(
+            T.Compose(
+                [
+                    T.Resize(336),
+                    T.CenterCrop(336),
+                    T.ToTensor(),
+                    T.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
+                ]
+            )
+        )
 
         self.models_loaded = True
 
@@ -60,5 +74,5 @@ class ISICEnsembleEngine:
 
         return {
             "probability": final_prob,
-            "prediction": "benign" if final_prob < 0.5 else "malignant"
+            "prediction": "benign" if final_prob < 0.5 else "malignant",
         }

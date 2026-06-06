@@ -1,12 +1,15 @@
 """
 Pydantic schemas for API requests and responses
 """
-from pydantic import BaseModel, Field
+
 from datetime import datetime
-from typing import Optional
+
+from pydantic import BaseModel, Field
+
 
 class PredictionRequest(BaseModel):
-    isic_id: Optional[str] = None
+    isic_id: str | None = None
+
 
 class PredictionResponse(BaseModel):
     isic_id: str
@@ -14,7 +17,8 @@ class PredictionResponse(BaseModel):
     prediction: str
     model_version: str
     timestamp: datetime
-    review_triggered: bool = False   
+    review_triggered: bool = False
+
 
 class HealthResponse(BaseModel):
     status: str

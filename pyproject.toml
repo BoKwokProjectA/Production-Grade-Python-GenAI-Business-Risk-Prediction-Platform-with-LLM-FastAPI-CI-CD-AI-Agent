@@ -1,0 +1,50 @@
+[tool.black]
+line-length = 100
+target-version = ["py311"]
+exclude = '''
+/(
+    \.git
+  | \.venv
+  | venv
+  | env
+  | notebooks
+  | data
+  | logs
+)/
+'''
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+exclude = [
+  ".git",
+  ".venv",
+  "venv",
+  "env",
+  "notebooks",
+  "data",
+  "logs",
+  "*.ipynb",
+  "Rag_assistant.py",
+  "Setup.py",
+  "agent_evaluation_suite.py",
+  "copilot_studio_agent.py",
+  "docker_api_deployment.py",
+  "fastapi_inference_backend.py",
+  "inference_engine_refactor.py",
+  "production_backend_features.py",
+  "prompt_versioning.py",
+  "real_ensemble_integration.py",
+]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+ignore = [
+  "E501",
+  "B008"
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+addopts = "-ra"

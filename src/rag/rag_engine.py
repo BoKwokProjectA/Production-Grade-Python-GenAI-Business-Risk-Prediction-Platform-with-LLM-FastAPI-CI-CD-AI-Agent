@@ -3,30 +3,28 @@ RAG engine for answering questions about the project
 """
 
 import glob
-from langchain_community.vectorstores import FAISS
+
 from langchain_community.embeddings import HuggingFaceEmbeddings
+from langchain_community.vectorstores import FAISS
 from langchain_text_splitters import RecursiveCharacterTextSplitter
+
 
 class RAGEngine:
     def __init__(self):
-        self.embeddings = HuggingFaceEmbeddings(
-            model_name="sentence-transformers/all-MiniLM-L6-v2"
-        )
+        self.embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
         self.vectorstore = None
 
     def index_project(self):
         documents = []
 
-
         for filepath in glob.glob("src/**/*.py", recursive=True):
             try:
-                with open(filepath, "r", encoding="utf-8") as f:
+                with open(filepath, encoding="utf-8") as f:
                     content = f.read()
                     documents.append(f"File: {filepath}\n{content[:2000]}")
-            except:
-                pass
+            except Exception as exc:
+                print(f"Skipping {filepath}: {exc}")
 
-        # Add general project context
         documents.append("""
         This project implements a skin lesion analysis system based on the
         1st and 2nd place solution from ISIC 2024 competition.

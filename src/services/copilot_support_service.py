@@ -5,8 +5,6 @@ The agent answers technical/support questions only. It should never diagnose
 a lesion, interpret an uploaded image, or suggest treatment.
 """
 
-from typing import Dict, List, Optional
-
 
 class CopilotSupportService:
     def __init__(self):
@@ -35,9 +33,9 @@ class CopilotSupportService:
     def answer_question(
         self,
         question: str,
-        conversation_id: Optional[str] = None,
-        user_role: Optional[str] = "user",
-    ) -> Dict:
+        conversation_id: str | None = None,
+        user_role: str | None = "user",
+    ) -> dict:
         clean_question = (question or "").strip()
         intent = self._classify_intent(clean_question)
 
@@ -64,19 +62,37 @@ class CopilotSupportService:
         if any(term in q for term in self.medical_terms):
             return "medical_advice"
 
-        if any(term in q for term in ["failed", "fail", "error", "troubleshoot", "400", "500", "reject"]):
+        if any(
+            term in q
+            for term in ["failed", "fail", "error", "troubleshoot", "400", "500", "reject"]
+        ):
             return "failed_upload_support"
 
-        if any(term in q for term in ["upload", "image file", "file type", "multipart", "form-data"]):
+        if any(
+            term in q for term in ["upload", "image file", "file type", "multipart", "form-data"]
+        ):
             return "image_upload_support"
 
-        if any(term in q for term in ["endpoint", "api", "predict", "/predict", "request", "response"]):
+        if any(
+            term in q for term in ["endpoint", "api", "predict", "/predict", "request", "response"]
+        ):
             return "api_support"
 
         if any(term in q for term in ["probability", "score", "confidence", "risk score"]):
             return "prediction_explanation"
 
-        if any(term in q for term in ["govern", "governance", "safety", "limitation", "human review", "audit", "action tier"]):
+        if any(
+            term in q
+            for term in [
+                "govern",
+                "governance",
+                "safety",
+                "limitation",
+                "human review",
+                "audit",
+                "action tier",
+            ]
+        ):
             return "governance"
 
         return "general_platform_support"
@@ -127,7 +143,7 @@ class CopilotSupportService:
 
         return answers.get(intent, answers["general_platform_support"])
 
-    def _sources_for_intent(self, intent: str) -> List[str]:
+    def _sources_for_intent(self, intent: str) -> list[str]:
         source_map = {
             "api_support": [
                 "prediction_endpoint.pdf",
@@ -174,7 +190,7 @@ class CopilotSupportService:
     def _escalation_required_for_intent(self, intent: str) -> bool:
         return intent == "medical_advice"
 
-    def _medical_refusal(self) -> Dict:
+    def _medical_refusal(self) -> dict:
         return {
             "answer": (
                 "I cannot provide medical advice or diagnose any skin condition. "

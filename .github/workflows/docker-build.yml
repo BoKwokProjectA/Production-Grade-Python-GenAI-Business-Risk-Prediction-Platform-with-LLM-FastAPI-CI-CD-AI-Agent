@@ -1,0 +1,75 @@
+name: Docker Build Smoke Test
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  docker-smoke-test:
+    name: Build image and smoke-test container
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+
+    env:
+      IMAGE_NAME: isic-api-ci
+      APP_NAME: ISIC2024-Flagship
+      API_VERSION: v1
+      MODEL_VERSION: 2024-ensemble-2models
+      DEBUG: "False"
+      DATABASE_URL: sqlite:///./test_isic.db
+      SECRET_KEY: docker-ci-test-secret-key
+      POWER_AUTOMATE_URL: ""
+      OPENAI_API_KEY: sk-ci-dummy-not-used
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Build Docker image
+        run: docker build -t $IMAGE_NAME:${{ github.sha }} .
+
+      - name: Start container
+        run: |
+          docker run -d \
+            --name isic-api \
+            -p 8080:8080 \
+            -e PORT=8080 \
+            -e APP_NAME="$APP_NAME" \
+            -e API_VERSION="$API_VERSION" \
+            -e MODEL_VERSION="$MODEL_VERSION" \
+            -e DEBUG="$DEBUG" \
+            -e DATABASE_URL="$DATABASE_URL" \
+            -e SECRET_KEY="$SECRET_KEY" \
+            -e POWER_AUTOMATE_URL="$POWER_AUTOMATE_URL" \
+            -e OPENAI_API_KEY="$OPENAI_API_KEY" \
+            $IMAGE_NAME:${{ github.sha }}
+
+      - name: Wait for FastAPI health endpoint
+        run: |
+          for i in {1..60}; do
+            if curl -fsS http://localhost:8080/api/v1/health; then
+              echo "Health check passed"
+              exit 0
+            fi
+            echo "Waiting for container... attempt $i"
+            sleep 2
+          done
+          docker logs isic-api
+          exit 1
+
+      - name: Smoke-test root endpoint
+        run: curl -fsS http://localhost:8080/
+
+      - name: Show container logs on failure
+        if: failure()
+        run: docker logs isic-api || true
+
+      - name: Stop container
+        if: always()
+        run: docker rm -f isic-api || true

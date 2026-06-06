@@ -5,10 +5,9 @@ Main FastAPI application.
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from src.core.config import get_settings
-from src.api.routes import health_router, prediction_router
 from src.api.copilot_routes import copilot_router
-
+from src.api.routes import health_router, prediction_router
+from src.core.config import get_settings
 
 settings = get_settings()
 

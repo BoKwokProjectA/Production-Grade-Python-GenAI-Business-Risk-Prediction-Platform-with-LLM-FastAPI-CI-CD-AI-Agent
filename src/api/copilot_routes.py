@@ -12,7 +12,6 @@ from src.schemas.copilot_agent import (
 )
 from src.services.copilot_support_service import CopilotSupportService
 
-
 copilot_router = APIRouter()
 
 

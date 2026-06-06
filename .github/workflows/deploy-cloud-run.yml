@@ -1,0 +1,74 @@
+name: Deploy to Cloud Run
+
+on:
+  workflow_run:
+    workflows: ["Docker Build Smoke Test"]
+    types: [completed]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+
+env:
+  SERVICE_NAME: ${{ secrets.CLOUD_RUN_SERVICE }}
+  REGION: ${{ secrets.CLOUD_RUN_REGION }}
+  PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
+
+jobs:
+  deploy:
+    name: Deploy source to Google Cloud Run
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    if: >-
+      ${{
+        github.event_name == 'workflow_dispatch' ||
+        (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main')
+      }}
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ secrets.GCP_DEPLOYER_SERVICE_ACCOUNT }}
+
+      - name: Set up gcloud
+        uses: google-github-actions/setup-gcloud@v3
+        with:
+          project_id: ${{ env.PROJECT_ID }}
+
+      - name: Deploy to Cloud Run from source
+        run: |
+          gcloud run deploy "$SERVICE_NAME" \
+            --source . \
+            --region "$REGION" \
+            --project "$PROJECT_ID" \
+            --allow-unauthenticated \
+            --port 8080 \
+            --memory 4Gi \
+            --cpu 1 \
+            --min-instances 0 \
+            --max-instances 1 \
+            --timeout 300 \
+            --cpu-boost \
+            --set-env-vars APP_NAME=ISIC2024-Flagship,API_VERSION=v1,MODEL_VERSION=2024-ensemble-2models,DEBUG=False,DATABASE_URL=sqlite:///tmp/isic.db
+
+      - name: Get Cloud Run service URL
+        id: service-url
+        run: |
+          SERVICE_URL=$(gcloud run services describe "$SERVICE_NAME" \
+            --region "$REGION" \
+            --project "$PROJECT_ID" \
+            --format='value(status.url)')
+          echo "url=$SERVICE_URL" >> "$GITHUB_OUTPUT"
+          echo "Service URL: $SERVICE_URL"
+
+      - name: Post-deployment health check
+        run: |
+          curl -fsS "${{ steps.service-url.outputs.url }}/api/v1/health"
