@@ -6,9 +6,9 @@
 
 ## Overview
 
-This project turns an ISIC 2024 skin cancer detection research workflow into a deployed, production-style machine learning API.
+This project turns a risk detection research workflow into a deployed, production-style machine learning API, reflecting how modern businesses use risk prediction systems.
 
-Users can upload a skin lesion image through a FastAPI backend and receive a malignant/benign risk prediction from a two-model vision ensemble using ConvNeXt and EVA-02. The API is containerized with Docker, deployed on Google Cloud Run, and includes interactive Swagger documentation, health checks, structured logging, clean backend architecture, and a retrieval-based RAG assistant for project/codebase Q&A.
+Users can upload an image through a FastAPI backend and receive a risk prediction from a two-model vision ensemble using ConvNeXt and EVA-02. The API is containerized with Docker, deployed on Google Cloud Run, and includes interactive Swagger documentation, checks, structured logging, clean backend architecture, and a retrieval-based RAG assistant for project/codebase Q&A.
 
 This repository is presented as a job-application portfolio project for machine learning engineering, AI engineering, automation engineering, backend engineering, and MLOps-oriented roles. It demonstrates the ability to move from notebook experimentation to a deployed API, design production-style software architecture, package an ML system with Docker, connect the backend to a working Power Platform/Copilot Studio workflow, deploy to cloud infrastructure, and document safety and governance decisions clearly.
 
@@ -32,14 +32,14 @@ Deployment note: this project is deployed with Docker on Google Cloud Run. The A
 
 ## Project Highlights
 
-- Built upon the 1st/2nd place winning solution concept of the ISIC 2024 Skin Cancer Detection Challenge
+- Built upon the 1st/2nd place winning solution concept of a Kaggle Challenge
 - Transformed a Kaggle / notebook-based workflow into a production-oriented backend system
 - Deployed a working FastAPI API on Google Cloud Run with Docker
-- Added a GitHub Actions CI/CD pipeline with Ruff linting, Black formatting checks, pytest endpoint tests, Docker image build smoke testing, and automated Google Cloud Run source deployment with a live post-deployment health check.
+- Added a GitHub Actions CI/CD pipeline with Ruff linting, Black formatting checks, pytest endpoint tests, Docker image build smoke testing, and automated Google Cloud Run source deployment with a live post-deployment check.
 - Integrated a two-model production inference backend using ConvNeXt + EVA-02
-- Added real image upload support for malignant/benign skin lesion risk prediction
+- Added real image upload support for risk prediction
 - Built a retrieval-based RAG assistant for project/codebase technical Q&A
-- Added clean architecture, structured logging, health checks, Pydantic schemas, and environment-based configuration
+- Added clean architecture, structured logging, checks, Pydantic schemas, and environment-based configuration
 - Configured Cloud Run with warm instance support using `--min-instances 1` for live demo readiness
 - Demonstrates the full ML application lifecycle: notebook experimentation, real-time inference API design, Docker packaging, cloud deployment, Power Automate workflow integration, API documentation, observability, and safety boundaries
 - Added prompt/versioning, evaluation, governance, and Power Automate workflow artefacts for safer AI assistant and automation development
