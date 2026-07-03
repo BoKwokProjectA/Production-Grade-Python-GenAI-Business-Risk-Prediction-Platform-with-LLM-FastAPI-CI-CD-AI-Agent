@@ -32,6 +32,13 @@ jobs:
         with:
           ref: ${{ github.event.workflow_run.head_sha || github.sha }}
 
+      - name: Debug GitHub identity
+        run: |
+          echo "github.repository=${{ github.repository }}"
+          echo "github.repository_owner=${{ github.repository_owner }}"
+          echo "github.ref=${{ github.ref }}"
+          echo "github.event_name=${{ github.event_name }}"
+
       - name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v2
         with:
