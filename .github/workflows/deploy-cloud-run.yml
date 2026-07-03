@@ -56,6 +56,8 @@ jobs:
             --max-instances 1 \
             --timeout 300 \
             --cpu-boost \
+            --quiet \
+            --set-secrets POWER_AUTOMATE_URL=power-automate-url:latest \
             --set-env-vars APP_NAME=ISIC2024-Flagship,API_VERSION=v1,MODEL_VERSION=2024-ensemble-2models,DEBUG=False,DATABASE_URL=sqlite:///tmp/isic.db
 
       - name: Get Cloud Run service URL
