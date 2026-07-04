@@ -8,7 +8,7 @@
 
 This project turns a risk detection research workflow into a deployed, production-style machine learning API, reflecting how modern businesses use risk prediction systems.
 
-Users can upload an image through a FastAPI backend and receive a risk prediction from a two-model vision ensemble using ConvNeXt and EVA-02. The API is containerized with Docker, deployed on Google Cloud Run, and includes interactive Swagger documentation, checks, structured logging, clean backend architecture, and a retrieval-based RAG assistant for project/codebase Q&A.
+Users can upload an image through a FastAPI backend and receive a risk prediction from a two-model vision ensemble using ConvNeXt and EVA-02. The API is containerized with Docker and deployed primarily on Azure Container Apps, with the previous Google Cloud Run deployment retained as backup and rollback evidence. It includes interactive Swagger documentation, health checks, structured logging, clean backend architecture, and a retrieval-based RAG assistant for project/codebase Q&A.
 
 This repository is presented as a job-application portfolio project for machine learning engineering, AI engineering, automation engineering, backend engineering, and MLOps-oriented roles. It demonstrates the ability to move from notebook experimentation to a deployed API, design production-style software architecture, package an ML system with Docker, connect the backend to a working Power Platform/Copilot Studio workflow, deploy to cloud infrastructure, and document safety and governance decisions clearly.
 
@@ -16,13 +16,26 @@ The goal of this project is not only to build a model inference endpoint, but to
 
 ## Live Demo
 
-Live API: https://isic-api-918647643601.europe-west2.run.app  
-Interactive Swagger Docs: https://isic-api-918647643601.europe-west2.run.app/docs  
-OpenAPI Schema: https://isic-api-918647643601.europe-west2.run.app/openapi.json  
-Health Check: https://isic-api-918647643601.europe-west2.run.app/api/v1/health  
-Power Automation Demonstration: https://youtu.be/QUAovVvRWbs  
-Copilot Studio Demo Website: https://copilotstudio.microsoft.com/environments/Default-3963fbd2-2446-49b2-b256-85f442a969ae/bots/cr3a2_SkinLesionPlatformSupportAgent_Demo/canvas  
+**Primary live deployment: Azure Container Apps**
+
+Live API: https://isic-api-azure.livelybeach-7ed547b8.uksouth.azurecontainerapps.io   
+Interactive Swagger Docs: https://isic-api-azure.livelybeach-7ed547b8.uksouth.azurecontainerapps.io/docs   
+OpenAPI Schema: https://isic-api-azure.livelybeach-7ed547b8.uksouth.azurecontainerapps.io/openapi.json   
+Health Check: https://isic-api-azure.livelybeach-7ed547b8.uksouth.azurecontainerapps.io/api/v1/health   
+Power Automation Demonstration: https://youtu.be/QUAovVvRWbs    
+Copilot Studio Demo Website: https://copilotstudio.microsoft.com/environments/Default-3963fbd2-2446-49b2-b256-85f442a969ae/bots/cr3a2_SkinLesionPlatformSupportAgent_Demo/canvas
+
 The demo website includes an embedded Microsoft Copilot Studio technical support agent. Users can ask platform-support questions about API usage, image upload flow, prediction response format, governance, and safety boundaries directly from the website.
+
+**Previous / backup deployment: Google Cloud Run**
+
+Backup Live API: https://isic-api-918647643601.europe-west2.run.app   
+Backup Swagger Docs: https://isic-api-918647643601.europe-west2.run.app/docs    
+Backup OpenAPI Schema: https://isic-api-918647643601.europe-west2.run.app/openapi.json    
+Backup Health Check: https://isic-api-918647643601.europe-west2.run.app/api/v1/health    
+
+Deployment note: this project is now demonstrated primarily on Azure Container Apps. The previous Google Cloud Run deployment is intentionally kept intact as backup and rollback evidence. GCP has not been deleted or fully migrated away.
+
 
 <img width="1600" height="706" alt="1" src="https://github.com/user-attachments/assets/81975874-c9f3-491c-a41e-265be10b2ee3" />
 <img width="1600" height="701" alt="2" src="https://github.com/user-attachments/assets/770165ea-d25e-4465-9ea5-e428a63267a6" />
@@ -34,7 +47,9 @@ Deployment note: this project is deployed with Docker on Google Cloud Run. The A
 
 - Built upon the 1st/2nd place winning solution concept of a Kaggle Challenge
 - Transformed a Kaggle / notebook-based workflow into a production-oriented backend system
-- Deployed a working FastAPI API on Google Cloud Run with Docker
+- Deployed a working FastAPI API with Docker on Azure Container Apps, with the previous Google Cloud Run deployment retained as backup.
+- Added Azure Container Apps as the primary live deployment while keeping the existing Google Cloud Run deployment intact as backup / rollback evidence.
+- Deployed the Dockerized FastAPI API to Azure Container Apps in UK South using Azure Container Registry, managed identity-based ACR image pull, Log Analytics and scale-to-zero cost controls.
 - Added a GitHub Actions CI/CD pipeline with Ruff linting, Black formatting checks, pytest endpoint tests, Docker image build smoke testing, and automated Google Cloud Run source deployment with a live post-deployment check.
 - Integrated a two-model production inference backend using ConvNeXt + EVA-02
 - Added real image upload support for risk prediction
@@ -86,7 +101,7 @@ power_automate/               # Power Automate workflow notes and integration as
 **Vision Models:** ConvNeXt, EVA-02  
 **RAG:** LangChain, FAISS, Sentence Transformers  
 **Database Layer:** SQLAlchemy, SQLite-ready repository layer  
-**Deployment:** Docker, Google Cloud Run, Google Cloud Build
+**Deployment:** Docker, Azure Container Apps, Azure Container Registry, Google Cloud Run, Google Cloud Build  
 **AI Automation:** Power Automate workflow integrated with the Dockerized FastAPI backend
 **Microsoft 365 Knowledge Source:** SharePoint document library used to store Copilot Studio knowledge documents as PDF-based grounding material  
 **Logging & Config:** structlog, Pydantic Settings  
@@ -199,9 +214,19 @@ These artefacts show how the project combines safer assistant behaviour, evaluat
 
 **Docker Support:** Fully containerized for cloud deployment.
 
-**Google Cloud Run Deployment:** Deployed with Docker on Google Cloud Run.
+**Google Cloud Run Backup Deployment:** The previous Google Cloud Run deployment remains available as backup and rollback evidence.
 
 **Google Cloud Build Source Deployment:** Uses `gcloud run deploy --source .` deployment workflow.
+
+**Azure Container Apps Deployment:** Added a second cloud deployment target using Azure Container Apps in UK South.
+
+**Azure Container Registry:** Stores the Docker image used by Azure Container Apps.
+
+**Managed Identity Image Pull:** Azure Container Apps uses a user-assigned managed identity with `AcrPull` permission to pull the image from Azure Container Registry without storing registry passwords.
+
+**Azure Log Analytics:** Container Apps logs are connected to a Log Analytics workspace for deployment debugging and runtime observability.
+
+**Scale-to-Zero Cost Control:** Azure Container Apps is configured with `min-replicas 0` and `max-replicas 1` to control pay-as-you-go cost during portfolio demo usage.
 
 **Warm Instance Setup:** Cloud Run configured with `--min-instances 1` for live demo readiness and reduced cold-start impact.
 
@@ -316,8 +341,7 @@ For Google Cloud Run, the container uses the platform-provided `PORT` environmen
 
 ## Power Automate Workflow and Copilot Studio Integration
 
-The project includes a Power Platform custom connector and Copilot Studio technical support-agent integration connected to the Dockerized FastAPI backend. The backend also accepts a POWER_AUTOMATE_URL secret, so a Power Automate webhook can be configured safely through Google Secret Manager.
-
+The project includes a Power Platform custom connector and Copilot Studio technical support-agent integration connected to the Dockerized FastAPI backend. The backend also accepts a `POWER_AUTOMATE_URL` secret. In Google Cloud Run this can be configured through Google Secret Manager, while in Azure Container Apps it is configured as a Container Apps secret. The real webhook URL is not committed to GitHub.
 The Copilot Studio agent is also connected to a SharePoint knowledge source containing PDF versions of the project support and governance documents. This gives the agent a maintained document source for technical support answers while keeping the medical safety boundary explicit.
 
 The automation layer is presented as practical AI workflow automation around the backend. It does not automate medical diagnosis, treatment advice, or clinical decision-making.
@@ -354,6 +378,98 @@ gcloud run deploy isic-api \
   --set-secrets POWER_AUTOMATE_URL=power-automate-url:latest \
   --project isic-flagship-project
 ```
+
+## Azure Container Apps Deployment
+
+The API is also deployed to Azure Container Apps as the primary live portfolio demo deployment.
+
+This Azure deployment was added safely without deleting or replacing the existing Google Cloud Run deployment. Google Cloud Run remains available as backup and rollback evidence.
+
+**Azure platform:** Azure Container Apps
+**Azure region:** UK South
+**Container registry:** Azure Container Registry
+**Image:** `isicapiacrhp7lku.azurecr.io/isic-api:azure-demo-v2`
+**Runtime port:** `8080`
+**Public access:** External HTTPS ingress
+**CPU / memory:** 2 vCPU / 4Gi
+**Scale setting:** min replicas `0`, max replicas `1`
+**Cost-control approach:** Consumption-style scale-to-zero configuration for low-cost portfolio testing
+**Backup deployment:** Google Cloud Run remains available as rollback evidence
+
+Example Azure deployment commands:
+
+```bash
+LOCATION="uksouth"
+RG="rg-isic-aca-demo-uks"
+ACR_NAME="isicapiacrhp7lku"
+APP_NAME="isic-api-azure"
+ENV_NAME="aca-env-isic-demo-uks"
+IDENTITY_NAME="id-isic-aca-pull"
+IMAGE_NAME="isic-api"
+IMAGE_TAG="azure-demo-v2"
+
+ACR_LOGIN_SERVER=$(az acr show \
+  --name "$ACR_NAME" \
+  --resource-group "$RG" \
+  --query loginServer \
+  -o tsv)
+
+IDENTITY_ID=$(az identity show \
+  --name "$IDENTITY_NAME" \
+  --resource-group "$RG" \
+  --query id \
+  -o tsv)
+
+FULL_IMAGE_NAME="$ACR_LOGIN_SERVER/$IMAGE_NAME:$IMAGE_TAG"
+
+az containerapp update \
+  --name "$APP_NAME" \
+  --resource-group "$RG" \
+  --image "$FULL_IMAGE_NAME" \
+  --cpu 2.0 \
+  --memory 4.0Gi \
+  --min-replicas 0 \
+  --max-replicas 1
+```
+
+Secrets such as `SECRET_KEY` and `POWER_AUTOMATE_URL` are configured through Azure Container Apps secrets and are not committed to GitHub.
+
+### Azure endpoint checks
+
+The Azure deployment was tested through:
+
+```text
+/
+ /docs
+/openapi.json
+/api/v1/health
+/api/v1/predict
+```
+
+Deployment evidence is stored under:
+
+```text
+deployment/azure/
+```
+
+### Cost-control note
+
+The Azure deployment uses `min-replicas 0` and `max-replicas 1` to keep pay-as-you-go costs low. This allows the app to scale to zero when unused.
+
+Because this API uses ML/RAG dependencies, the first request after scale-to-zero may be slower due to cold start. For short live demo periods, the app can temporarily be set to `min-replicas 1`, then returned to `min-replicas 0` after testing.
+
+### Rollback note
+
+The previous Google Cloud Run deployment remains intact.
+
+If Azure fails, the README/demo links can be switched back to the Cloud Run deployment:
+
+```text
+https://isic-api-918647643601.europe-west2.run.app
+```
+
+GCP should not be deleted until a later migration phase.
+
 
 ## CI/CD with GitHub Actions
 
@@ -459,6 +575,8 @@ These files demonstrate that the project considers:
 
 - Transformed an ISIC 2024-inspired notebook workflow into a deployed ML inference API
 - Deployed a working FastAPI backend on Google Cloud Run with Docker
+- Added Azure Container Apps deployment as the primary live demo while keeping Google Cloud Run intact as backup / rollback evidence.
+- Used Azure Container Registry, managed identity-based image pull, Azure Log Analytics, and Container Apps scale controls for a low-cost Azure deployment.
 - Implemented GitHub Actions CI/CD with Ruff, Black, pytest, Docker container smoke testing, and automated Google Cloud Run source deployment.
 - Integrated ConvNeXt + EVA-02 as the implemented production model ensemble
 - Added real image upload inference and interactive Swagger/OpenAPI documentation
