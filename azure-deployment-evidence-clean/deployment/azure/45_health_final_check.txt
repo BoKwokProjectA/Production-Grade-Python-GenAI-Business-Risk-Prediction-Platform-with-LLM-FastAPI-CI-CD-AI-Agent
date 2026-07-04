@@ -1,0 +1,7 @@
+HTTP/2 200 
+date: Fri, 03 Jul 2026 22:00:35 GMT
+server: uvicorn
+content-length: 79
+content-type: application/json
+
+{"status":"healthy","model_version":"2024-ensemble-2models","api_version":"v1"}

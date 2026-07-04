@@ -1,0 +1,7 @@
+HTTP/2 200 
+content-length: 106
+content-type: application/json
+date: Fri, 03 Jul 2026 21:50:51 GMT
+server: uvicorn
+
+{"status":"ok","service":"ISIC Skin Lesion Platform API","docs_url":"/docs","openapi_url":"/openapi.json"}
