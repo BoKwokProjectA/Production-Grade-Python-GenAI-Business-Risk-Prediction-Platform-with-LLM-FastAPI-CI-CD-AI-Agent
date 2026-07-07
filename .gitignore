@@ -14,3 +14,15 @@ __pycache__/
 .pytest_cache/
 *.pyc
 .coverage
+
+# Frontend v2
+portfolio-frontend-v2/node_modules/
+portfolio-frontend-v2/dist/
+portfolio-frontend-v2/.env.local
+portfolio-frontend-v2/.env.*.local
+
+# Optional frontend logs/cache
+portfolio-frontend-v2/.vite/
+portfolio-frontend-v2/npm-debug.log*
+portfolio-frontend-v2/yarn-debug.log*
+portfolio-frontend-v2/yarn-error.log*
