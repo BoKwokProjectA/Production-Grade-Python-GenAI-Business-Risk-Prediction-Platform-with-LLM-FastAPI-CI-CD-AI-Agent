@@ -6,7 +6,7 @@ export const PROJECT_LINKS = {
   swaggerDocs: `${API_BASE_URL}/docs`,
   openApiSchema: `${API_BASE_URL}/openapi.json`,
   githubRepo: "https://github.com/BoKwokProjectA/Production-Grade-Python-GenAI-Business-Risk-Prediction-Platform-with-LLM-FastAPI-CI-CD-AI-Agent",
-  frontendDemo: "https://ai-risk-platform-frontend-v2.vercel.app",
+  frontendDemo: "https://production-grade-python-gen-ai-busi.vercel.app",
 };
 
 export const ACCEPTED_IMAGE_TYPES = ["image/jpeg", "image/png", "image/webp"];
