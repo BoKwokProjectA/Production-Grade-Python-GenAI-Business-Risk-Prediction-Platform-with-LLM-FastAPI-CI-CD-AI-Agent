@@ -1,5 +1,5 @@
 """
-Support service for the Skin Lesion Platform Copilot Studio agent.
+Support service for the AI Risk Platform Copilot Studio agent.
 
 The agent answers technical/support questions only. It should never diagnose
 a lesion, interpret an uploaded image, or suggest treatment.
@@ -50,9 +50,8 @@ class CopilotSupportService:
             "escalation_required": self._escalation_required_for_intent(intent),
             "sources": self._sources_for_intent(intent),
             "safety_note": (
-                "This agent provides technical support for the Skin Lesion Platform only. "
-                "It does not provide medical diagnosis, treatment advice, or clinical "
-                "interpretation of uploaded images."
+                "This agent provides technical support for the AI Risk Platform only. "
+                "It provides technical platform support only and does not make real-world decisions or replace qualified human review."
             ),
         }
 
@@ -135,7 +134,7 @@ class CopilotSupportService:
                 "image interpretation, must be refused."
             ),
             "general_platform_support": (
-                "I can help with technical questions about the Skin Lesion Platform, including the prediction "
+                "I can help with technical questions about the AI Risk Platform, including the prediction "
                 "endpoint, image upload process, probability score, failed uploads, governance, and safety limitations.\n\n"
                 "I cannot provide diagnosis, treatment advice, or clinical interpretation of skin lesions."
             ),
@@ -206,7 +205,6 @@ class CopilotSupportService:
                 "action_tier_model.pdf",
             ],
             "safety_note": (
-                "Medical diagnosis, lesion interpretation, and treatment advice are outside "
-                "the allowed scope of this support agent."
+                "Diagnosis, treatment advice, and real-world decision-making are outside the agent's allowed scope."
             ),
         }

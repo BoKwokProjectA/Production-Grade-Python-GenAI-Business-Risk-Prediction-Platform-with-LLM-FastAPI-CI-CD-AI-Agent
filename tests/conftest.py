@@ -2,7 +2,7 @@
 
 import os
 
-os.environ.setdefault("APP_NAME", "ISIC2024-Flagship")
+os.environ.setdefault("APP_NAME", "AI-Risk-Platform")
 os.environ.setdefault("API_VERSION", "v1")
 os.environ.setdefault("MODEL_VERSION", "2024-ensemble-2models")
 os.environ.setdefault("DEBUG", "False")

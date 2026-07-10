@@ -14,7 +14,7 @@ settings = get_settings()
 tags_metadata = [
     {
         "name": "prediction",
-        "description": "Upload a skin lesion image and receive a malignant-risk prediction.",
+        "description": "Upload an image and receive a structured risk scoring response.",
     },
     {
         "name": "health",
@@ -31,11 +31,10 @@ tags_metadata = [
 ]
 
 app = FastAPI(
-    title="ISIC Skin Lesion Platform API",
+    title="AI Risk Prediction Platform API",
     version=settings.API_VERSION,
     description=(
-        "ISIC Skin Lesion Detection API with image prediction "
-        "and Copilot Studio support endpoints."
+        "AI risk scoring API with image upload, prediction, health check, and support-agent endpoints."
     ),
     openapi_tags=tags_metadata,
 )
@@ -53,7 +52,7 @@ app.add_middleware(
 async def root():
     return {
         "status": "ok",
-        "service": "ISIC Skin Lesion Platform API",
+        "service": "AI Risk Prediction Platform API",
         "docs_url": "/docs",
         "openapi_url": "/openapi.json",
     }

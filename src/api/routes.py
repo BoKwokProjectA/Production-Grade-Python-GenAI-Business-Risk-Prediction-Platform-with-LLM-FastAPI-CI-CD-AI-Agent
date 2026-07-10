@@ -30,9 +30,9 @@ async def health_check():
 @prediction_router.post(
     "/predict",
     response_model=PredictionResponse,
-    summary="Expand the block to predict skin lesion risk",
+    summary="Expand the block to predict image risk score",
     description="""
-Upload a skin lesion image and receive a malignant-risk prediction.
+Upload an image and receive a structured risk scoring response.
 
 If the probability is in the review boundary range, the backend may trigger
 a human-review workflow depending on the active PredictionService implementation.

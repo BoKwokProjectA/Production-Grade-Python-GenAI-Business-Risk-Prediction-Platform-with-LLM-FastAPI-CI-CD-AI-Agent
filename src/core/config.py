@@ -6,7 +6,7 @@ from pydantic_settings import BaseSettings
 
 
 class Settings(BaseSettings):
-    APP_NAME: str = "ISIC 2024 Skin Cancer Detection"
+    APP_NAME: str = "AI-Risk-Platform"
     API_VERSION: str = "v1"
     MODEL_VERSION: str = "2024-ensemble-v1"
     DEBUG: bool = True

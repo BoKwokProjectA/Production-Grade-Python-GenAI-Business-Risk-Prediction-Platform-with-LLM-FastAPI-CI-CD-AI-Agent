@@ -22,7 +22,7 @@ async def copilot_agent_health():
     """
     return {
         "status": "ok",
-        "agent": "Skin Lesion Platform Support Agent",
+        "agent": "AI Risk Platform Support Agent",
         "scope": "technical_support_only",
     }
 
