@@ -16,25 +16,23 @@ The goal of this project is not only to build a model inference endpoint, but to
 
 ## Live Demo
 
-**Primary live deployment: Azure Container Apps**
+**Full-stack portfolio demo**
+
+Frontend Portfolio App: https://production-grade-python-gen-ai-busi.vercel.app/
+
+**Primary backend deployment: Azure Container Apps**
 
 Live API: https://isic-api-azure.livelybeach-7ed547b8.uksouth.azurecontainerapps.io   
 Interactive Swagger Docs: https://isic-api-azure.livelybeach-7ed547b8.uksouth.azurecontainerapps.io/docs   
 OpenAPI Schema: https://isic-api-azure.livelybeach-7ed547b8.uksouth.azurecontainerapps.io/openapi.json   
 Health Check: https://isic-api-azure.livelybeach-7ed547b8.uksouth.azurecontainerapps.io/api/v1/health   
-Power Automation Demonstration: https://youtu.be/QUAovVvRWbs    
-Copilot Studio Demo Website: https://copilotstudio.microsoft.com/environments/Default-3963fbd2-2446-49b2-b256-85f442a969ae/bots/cr3a2_SkinLesionPlatformSupportAgent_Demo/canvas
 
-The demo website includes an embedded Microsoft Copilot Studio technical support agent. Users can ask platform-support questions about API usage, image upload flow, prediction response format, governance, and safety boundaries directly from the website.
-
-**Previous / backup deployment: Google Cloud Run**
+**Previous / backup backend deployment: Google Cloud Run**
 
 Backup Live API: https://isic-api-918647643601.europe-west2.run.app   
 Backup Swagger Docs: https://isic-api-918647643601.europe-west2.run.app/docs    
 Backup OpenAPI Schema: https://isic-api-918647643601.europe-west2.run.app/openapi.json    
 Backup Health Check: https://isic-api-918647643601.europe-west2.run.app/api/v1/health    
-
-Deployment note: this project is now demonstrated primarily on Azure Container Apps. The previous Google Cloud Run deployment is intentionally kept intact as backup and rollback evidence. GCP has not been deleted or fully migrated away.
 
 
 <img width="1600" height="706" alt="1" src="https://github.com/user-attachments/assets/81975874-c9f3-491c-a41e-265be10b2ee3" />
@@ -43,8 +41,40 @@ Deployment note: this project is now demonstrated primarily on Azure Container A
 
 Deployment note: this project is deployed with Docker on Google Cloud Run. The API was verified through Cloud Run logs showing successful `200 OK` responses for `/`, `/docs`, and `/openapi.json`.
 
+## Frontend Portfolio App
+
+A Version 2 portfolio frontend has been added using **React, TypeScript, Vite, Tailwind CSS, and Vercel**.
+
+The frontend presents the deployed FastAPI backend as a business-facing AI risk prediction platform. It connects to the live backend through `VITE_API_BASE_URL` and demonstrates a complete full-stack workflow from browser UI to production API response.
+
+**Live Frontend:** https://production-grade-python-gen-ai-busi.vercel.app/
+**Frontend Source:** `portfolio-frontend-v2/`  
+**Backend API:** https://isic-api-azure.livelybeach-7ed547b8.uksouth.azurecontainerapps.io  
+**Swagger Docs:** https://isic-api-azure.livelybeach-7ed547b8.uksouth.azurecontainerapps.io/docs  
+
+Frontend capabilities include:
+
+- Responsive Tailwind CSS landing page
+- Image upload and risk scoring workflow
+- Backend health check using `GET /api/v1/health`
+- Prediction/risk scoring call using `POST /api/v1/predict`
+- Typed TypeScript API response models
+- Loading state during API calls
+- Error handling for no file, unsupported upload, backend/API failure, and network failure
+- Clear result display with uploaded file name, risk label, probability score, model version, and timestamp
+- Safety and governance disclaimer
+- Vercel deployment with environment-based backend configuration
+
+The frontend does not store private secrets. The deployed backend URL is configured through:
+
+VITE_API_BASE_URL=https://isic-api-azure.livelybeach-7ed547b8.uksouth.azurecontainerapps.io
+
 ## Project Highlights
 
+- Added a React, TypeScript, Vite, and Tailwind CSS frontend deployed on Vercel.
+- Built a business-facing AI risk prediction platform UI connected to the deployed FastAPI backend.
+- Implemented frontend image upload, backend health monitoring, typed API response handling, loading states, and error handling.
+- Configured the frontend with `VITE_API_BASE_URL` so the deployed Vercel app can call the Azure Container Apps backend without exposing private secrets.
 - Built upon the 1st/2nd place winning solution concept of a Kaggle Challenge
 - Transformed a Kaggle / notebook-based workflow into a production-oriented backend system
 - Deployed a working FastAPI API with Docker on Azure Container Apps, with the previous Google Cloud Run deployment retained as backup.
@@ -83,6 +113,20 @@ copilot_studio/
 ├── topics/               # Copilot Studio support topic markdown files
 └── sharepoint_knowledge_pack/ # Files prepared for SharePoint knowledge upload
 
+portfolio-frontend-v2/
+├── src/
+│   ├── components/       # Reusable React UI components
+│   ├── lib/              # API client and frontend constants
+│   ├── types/            # TypeScript API response types
+│   ├── App.tsx           # Main frontend layout
+│   ├── main.tsx          # React entry point
+│   └── index.css         # Tailwind CSS entry styles
+├── index.html
+├── package.json
+├── vite.config.ts
+└── .env.example
+
+
 notebooks/                # Development & refactoring notebooks
 configs/                  # Configuration files
 data/                     # Data artifacts / local data references
@@ -96,7 +140,9 @@ power_automate/               # Power Automate workflow notes and integration as
 
 ## Tech Stack
 
-**Backend:** FastAPI, Uvicorn, Pydantic  
+**Backend:** FastAPI, Uvicorn, Pydantic
+**Frontend:** React, TypeScript, Vite, Tailwind CSS  
+**Frontend Deployment:** Vercel  
 **ML:** PyTorch, TorchVision, Timm, scikit-learn  
 **Vision Models:** ConvNeXt, EVA-02  
 **RAG:** LangChain, FAISS, Sentence Transformers  
@@ -109,6 +155,26 @@ power_automate/               # Power Automate workflow notes and integration as
 **AI Safety / Evaluation Artefacts:** Prompt changelog, prompt review checklist, golden cases, hallucination tests, safety tests, governance documents
 
 ## Key Features
+
+### Frontend Portfolio Platform
+
+**React + TypeScript Frontend:** Adds a modern portfolio-quality frontend using React, TypeScript, Vite, and Tailwind CSS.
+
+**Business-Facing Risk Platform UI:** Presents the system as an AI risk prediction platform with professional wording suitable for job applications and technical demos.
+
+**Image Upload Workflow:** Allows users to select a supported image file and submit it to the deployed backend using multipart form-data.
+
+**Typed API Client:** Uses TypeScript interfaces for health check and prediction/risk scoring responses.
+
+**Backend Health Monitoring:** Calls `GET /api/v1/health` from the browser and displays backend status, API version, model version, and service information.
+
+**Risk Scoring Result Display:** Shows uploaded file name, backend file ID, risk label, probability score, model version, and timestamp.
+
+**Loading and Error States:** Handles no-file validation, unsupported file type validation, backend errors, and network failures.
+
+**Environment-Based Backend URL:** Uses `VITE_API_BASE_URL` so the same frontend can point to Azure Container Apps, Google Cloud Run, or another deployed backend.
+
+**Vercel Deployment:** Deployed as a Vercel frontend project with `portfolio-frontend-v2` as the root directory.
 
 ### Core ML Capabilities
 
@@ -471,6 +537,7 @@ https://isic-api-918647643601.europe-west2.run.app
 GCP should not be deleted until a later migration phase.
 
 
+
 ## CI/CD with GitHub Actions
 
 This repository includes a basic portfolio-grade CI/CD pipeline using GitHub Actions.
@@ -573,6 +640,10 @@ These files demonstrate that the project considers:
 
 ## Achievements
 
+- Built and deployed a portfolio-grade React, TypeScript, Vite, and Tailwind CSS frontend on Vercel.
+- Connected the Vercel frontend to the deployed FastAPI backend through environment-based configuration.
+- Implemented a full-stack browser-to-API workflow with image upload, backend health check, loading state, error handling, and typed result rendering.
+- Repositioned the frontend as a business-facing AI risk prediction platform while retaining safety and governance boundaries.
 - Transformed an ISIC 2024-inspired notebook workflow into a deployed ML inference API
 - Deployed a working FastAPI backend on Google Cloud Run with Docker
 - Added Azure Container Apps deployment as the primary live demo while keeping Google Cloud Run intact as backup / rollback evidence.
