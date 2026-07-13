@@ -536,7 +536,36 @@ https://isic-api-918647643601.europe-west2.run.app
 
 GCP should not be deleted until a later migration phase.
 
+## Vercel Frontend Deployment
 
+The Version 2 frontend is deployed on Vercel from the `portfolio-frontend-v2/` directory.
+
+Vercel configuration:
+
+```text
+Root Directory: portfolio-frontend-v2
+Framework Preset: Vite
+Build Command: npm run build
+Output Directory: dist
+Install Command: npm install
+```
+
+Required frontend environment variable:
+
+```env
+VITE_API_BASE_URL=https://isic-api-azure.livelybeach-7ed547b8.uksouth.azurecontainerapps.io
+```
+
+The frontend does not contain private secrets. Only public frontend-safe `VITE_` variables are used.
+
+The deployed frontend calls:
+
+```text
+GET /api/v1/health
+POST /api/v1/predict
+```
+
+The Azure Container Apps backend is used as the primary API target, while the Google Cloud Run deployment remains available as backup evidence.
 
 ## CI/CD with GitHub Actions
 
@@ -663,6 +692,12 @@ These files demonstrate that the project considers:
 - Added a SharePoint-based Copilot Studio knowledge source using PDF versions of project documentation, governance files, safety policies, and support-topic material.
 
 
-## Medical Disclaimer
+## Safety and Governance Disclaimer
 
-This project is for educational and research purposes only. It is intended only to demonstrate AI-assisted initial screening support. It is not a medical device and should not be used for diagnosis, treatment, or clinical decision-making. Please consult a qualified healthcare professional for further evaluation.
+This project is an educational and job-application portfolio implementation of a full-stack AI risk prediction platform.
+
+It is not a regulated product, clinical decision-support system, or automated decision-making system.
+
+Outputs are for technical demonstration only and should not be used for real-world decisions without qualified human review, validation, and appropriate governance controls.
+
+The backend model remains based on medical image risk classification, so the system must not be used for diagnosis, treatment, or clinical decision-making.
