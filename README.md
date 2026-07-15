@@ -39,7 +39,7 @@ Backup Health Check: https://isic-api-918647643601.europe-west2.run.app/api/v1/h
 <img width="1600" height="701" alt="2" src="https://github.com/user-attachments/assets/770165ea-d25e-4465-9ea5-e428a63267a6" />
 <img width="1600" height="698" alt="3" src="https://github.com/user-attachments/assets/5ed0d5d9-79e6-490c-a8ba-f7f548922d63" />
 
-Deployment note: this project is deployed with Docker on Google Cloud Run. The API was verified through Cloud Run logs showing successful `200 OK` responses for `/`, `/docs`, and `/openapi.json`.
+Deployment note: the primary backend is deployed with Docker on Azure Container Apps. The previous Google Cloud Run deployment is retained as backup, rollback evidence, and a secondary cloud deployment example.
 
 ## Frontend Portfolio App
 
@@ -188,22 +188,22 @@ power_automate/               # Power Automate workflow notes and integration as
 
 **Mean Ensemble Prediction:** Combines model probabilities through simple ensemble averaging.
 
-**Real Image Upload Inference Endpoint:** Upload a dermoscopy image and receive a malignant/benign lesion risk prediction.
+**Real Image Upload Inference Endpoint:** Upload a supported image and receive a binary model risk score and classification result.
 
-**Probability-Based Classification:** Converts malignant probability into benign/malignant prediction labels using the backend prediction flow.
+**Probability-Based Classification:** Converts positive-class probability into low-risk/high-risk classification labels using the backend prediction flow.
 
 ### Prediction Logic
 
-The API performs inference using a two-model ensemble: **ConvNeXt Small + EVA-02 Small**.
+The API performs image inference using a two-model ensemble: ConvNeXt Small + EVA-02 Small.
 
-1. Each model processes the uploaded dermoscopy image independently.
-2. Both models output a probability score for the malignant class after softmax.
-3. The final probability is the average of the two model outputs.
-4. Classification rule:
-   - Probability `< 0.5` → classified as `benign`
-   - Probability `>= 0.5` → classified as `malignant`
+Each model processes the uploaded image independently.
+Both models produce a score for the configured positive-risk class.
+The final model score is calculated by averaging the two outputs.
+Demonstration classification rule:
+Score < 0.5 → lower_risk
+Score >= 0.5 → higher_risk
 
-This ensemble approach provides a good balance between accuracy and inference speed while keeping the deployment lightweight.
+The threshold is included for demonstration purposes and can be configured for other business risk-classification scenarios. The output is a model-generated score rather than a verified real-world decision.
 
 ### Production Backend
 
@@ -229,7 +229,7 @@ This ensemble approach provides a good balance between accuracy and inference sp
 
 **Copilot Support Schemas:** CopilotSupportRequest validates question, conversation_id, and user_role; CopilotSupportResponse returns answer, intent, risk_level, automation_allowed, escalation_required, sources, and safety_note.
 
-**Support Service Intent Routing:** Copilot Support Service classifies support requests into technical intent categories such as `api_support`, `image_upload_support`, `failed_upload_support`, `prediction_explanation`, `governance`, `general_platform_support`, and `medical_advice`. Medical-advice intent is treated as prohibited and redirected to a qualified clinician rather than answered directly through Microsoft Power Automate.
+**Support Service Intent Routing:** Copilot Support Service classifies support requests into technical intent categories such as `api_support`, `image_upload_support`, `failed_upload_support`, `prediction_explanation`, `governance`, `general_platform_support`, and `medical_advice`. Requests requiring professional domain judgement are treated as restricted and redirected to an appropriately qualified professional rather than answered or actioned automatically.
 
 ### Intelligent RAG Assistant
 
@@ -243,13 +243,13 @@ This ensemble approach provides a good balance between accuracy and inference sp
 
 ### Microsoft Copilot Studio AI Agent, Demo Website Integration, Power Platform Connector, and Safety Behaviour
 
-The Copilot Studio notebook creates a technical-support-only support agent for the Skin Lesion Platform. The agent can explain API usage, image upload steps, probability scores, failed uploads, governance, and medical safety boundaries. It must not diagnose, classify, or interpret a user's lesion.
+The Copilot Studio notebook creates a technical-support agent for the AI Risk Intelligence Platform. The agent can explain API usage, image upload steps, probability scores, failed uploads, governance, and restricted-use boundaries. It must not make professional judgements, interpret user-submitted content as authoritative evidence, or trigger consequential actions without human review.
 
 The Copilot Studio agent is also activated in the live demo website as an embedded technical-support chat experience. The agent is scoped to project and platform support only. It can explain API usage, image upload requirements, prediction response fields, failed upload troubleshooting, workflow behaviour, governance documents, and safety limitations.
 
-The agent does not provide medical diagnosis, lesion interpretation, treatment advice, or clinical decision-making. Medical questions are refused with a safety-focused redirect to a qualified clinician.
+The agent does not provide professional advice, make consequential decisions, or replace qualified human review. Restricted professional-advice requests are declined and redirected to an appropriately qualified professional.
 
-**SharePoint Knowledge Source:** The Copilot Studio support agent uses a Microsoft SharePoint document library as its knowledge source. Project support and governance documents were converted into PDF format and uploaded to SharePoint so the agent can ground answers in maintained documentation about API usage, image uploads, probability scores, failed-upload troubleshooting, action tiers, human-in-the-loop review, security architecture, and medical safety boundaries.
+**SharePoint Knowledge Source:** The Copilot Studio support agent uses a Microsoft SharePoint document library as its knowledge source. Project support and governance documents were converted into PDF format and uploaded to SharePoint so the agent can ground answers in maintained documentation about API usage, image uploads, probability scores, failed-upload troubleshooting, action tiers, human-in-the-loop review, security architecture, and restricted-use boundaries.
 
 The SharePoint knowledge source is used only for technical and operational platform support. It is not used to provide medical diagnosis, treatment advice, or lesion interpretation.
 
