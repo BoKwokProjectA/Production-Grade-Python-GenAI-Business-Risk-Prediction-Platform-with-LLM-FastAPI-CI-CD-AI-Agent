@@ -229,7 +229,7 @@ The threshold is included for demonstration purposes and can be configured for o
 
 **Copilot Support Schemas:** CopilotSupportRequest validates question, conversation_id, and user_role; CopilotSupportResponse returns answer, intent, risk_level, automation_allowed, escalation_required, sources, and safety_note.
 
-**Support Service Intent Routing:** Copilot Support Service classifies support requests into technical intent categories such as `api_support`, `image_upload_support`, `failed_upload_support`, `prediction_explanation`, `governance`, `general_platform_support`, and `medical_advice`. Requests requiring professional domain judgement are treated as restricted and redirected to an appropriately qualified professional rather than answered or actioned automatically.
+**Support Service Intent Routing:** Copilot Support Service classifies support requests into technical intent categories such as `api_support`, `image_upload_support`, `failed_upload_support`, `prediction_explanation`, `governance`, `general_platform_support`, and `professional_advice`. Requests requiring professional domain judgement are treated as restricted and redirected to an appropriately qualified professional rather than answered or actioned automatically.
 
 ### Intelligent RAG Assistant
 
@@ -251,22 +251,22 @@ The agent does not provide professional advice, make consequential decisions, or
 
 **SharePoint Knowledge Source:** The Copilot Studio support agent uses a Microsoft SharePoint document library as its knowledge source. Project support and governance documents were converted into PDF format and uploaded to SharePoint so the agent can ground answers in maintained documentation about API usage, image uploads, probability scores, failed-upload troubleshooting, action tiers, human-in-the-loop review, security architecture, and restricted-use boundaries.
 
-The SharePoint knowledge source is used only for technical and operational platform support. It is not used to provide medical diagnosis, treatment advice, or lesion interpretation.
+The SharePoint knowledge source is used only for technical and operational platform support. It is not used to provide professional advice, authoritative interpretation, or automated consequential decisions.
 
 The updated project notebooks introduce a technical AI agent, Power Automate workflow integration, and supporting artefacts for safer AI-assistant development. These are included as portfolio evidence of responsible AI engineering and practical automation integration.
 **AI Agent:** Provides technical support around the platform, API behaviour, upload flow, prediction response format, governance process, and safety limitations.
 **Power Automate Integration:** Connects a working Power Automate workflow to the Dockerized FastAPI backend, showing how the deployed API can be used inside a low-code automation flow.
 **Prompt Versioning:** Includes system prompt versions, safety-focused prompt updates, a prompt changelog, and a review checklist.
 
-**Safety-Focused Assistant Rules:** Defines boundaries for technical support, including refusing medical diagnosis, treatment advice, or image interpretation requests.
+**Safety-Focused Assistant Rules:** Defines boundaries for technical support, including refusing restricted professional-advice requests or requests requiring qualified human judgement.
 
 **Evaluation Suite:** Includes golden cases for expected technical answers, hallucination checks, regression-style tests, and safety tests.
 
-**Governance Documentation:** Includes an action tier model, medical AI safety policy, human-in-the-loop policy, security architecture notes, edge case register, and classification canon.
+**Governance Documentation:** Includes an action tier model, Responsible AI governance policy, human-in-the-loop policy, security architecture notes, edge case register, and classification canon.
 
-**Medical safety rule:** if the user asks for diagnosis, treatment, or lesion interpretation, the agent refuses and redirects the user to a qualified clinician while still offering technical platform information.
+**Restricted-use rule:** If a request requires professional judgement or a consequential decision, the agent declines the request, explains the platform boundary, and recommends appropriate human review.
 
-These artefacts show how the project combines safer assistant behaviour, evaluation gates, governance practices, and a working automation workflow without presenting the system as a medical decision-making tool.
+These artefacts show how the project combines safer assistant behaviour, evaluation gates, governance practices, and a working automation workflow without presenting the system as a professional decision-support tool.
 
 ### Production & Observability
 
@@ -625,7 +625,7 @@ The SharePoint knowledge documents include platform-support material for:
 - Probability score explanation
 - Governance and action tiers
 - Human-in-the-loop review policy
-- Medical AI safety policy
+- Responsible AI policy
 - Security architecture
 - Prompt versioning and safety rules
 
@@ -658,14 +658,14 @@ governance/
 
 These files demonstrate that the project considers:
 
-- Medical AI safety boundaries
+- Responsible AI boundaries
 - Technical-support-only assistant behaviour
-- Refusal behaviour for diagnosis or treatment questions
+- Refusal behaviour for restricted professional-advice requests
 - Golden-case testing for expected answers
 - Hallucination and safety testing
 - Prompt review and changelog discipline
 - Governance documentation suitable for professional AI workflows
-- Power Automate workflow integration is presented as a working automation layer connected to the Dockerized backend. The AI agent remains scoped to technical support and safety-aware platform guidance, not medical diagnosis or treatment advice.
+- Power Automate workflow integration is presented as a working automation layer connected to the Dockerized backend. The AI agent remains scoped to technical support and safety-aware platform guidance, not professional or regulated advice.
 
 ## Achievements
 
