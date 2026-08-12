@@ -1,5 +1,5 @@
 # Production-Grade Full-Stack AI Business Risk Prediction Platform: Post-Graduation Project 
-Technology Stack: Backend: Python, FastAPI, SQLAlchemy and Pydantic v2; UI/UX Frontend: React, TypeScript, Vite, Tailwind CSS, HTML and CSS; DevOps, MLOps and Cloud: Docker, GitHub Actions CI/CD, Azure Container Apps, Google Cloud Run and Vercel;
+# Technology Stack: Backend: Python, FastAPI, SQLAlchemy and Pydantic v2; UI/UX Frontend: React, TypeScript, Vite, Tailwind CSS, HTML and CSS; DevOps, MLOps and Cloud: Docker, GitHub Actions CI/CD, Azure Container Apps, Google Cloud Run and Vercel;
 
 [![CI](https://github.com/BoKwokProjectA/Production-Grade-AI-Medical-Image-Risk-Prediction-Platform-FastAPI-Docker-RAG-SQLite-Cloud/actions/workflows/ci.yml/badge.svg)](https://github.com/BoKwokProjectA/Production-Grade-AI-Medical-Image-Risk-Prediction-Platform-FastAPI-Docker-RAG-SQLite-Cloud/actions/workflows/ci.yml)
 [![Docker Build Smoke Test](https://github.com/BoKwokProjectA/Production-Grade-AI-Medical-Image-Risk-Prediction-Platform-FastAPI-Docker-RAG-SQLite-Cloud/actions/workflows/docker-build.yml/badge.svg)](https://github.com/BoKwokProjectA/Production-Grade-AI-Medical-Image-Risk-Prediction-Platform-FastAPI-Docker-RAG-SQLite-Cloud/actions/workflows/docker-build.yml)
