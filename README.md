@@ -21,6 +21,19 @@ The goal of this project is not only to build a model inference endpoint, but to
 
 Frontend Portfolio App: https://production-grade-python-gen-ai-busi.vercel.app/
 
+## AI Agent & Automation Demos
+
+**Power Automate Demonstration:**
+https://youtu.be/QUAovVvRWbs
+
+**Microsoft Copilot Studio AI Agent Demo Website:**
+https://copilotstudio.microsoft.com/environments/Default-3963fbd2-2446-49b2-b256-85f442a969ae/bots/cr3a2_SkinLesionPlatformSupportAgent_Demo/canvas
+
+The demo website includes a Microsoft Copilot Studio technical-support AI agent that allows users to interact with the platform through a chatbot experience. The agent can answer technical questions about API usage, image uploads, prediction response fields, failed-upload troubleshooting, workflow behaviour, governance documentation, and platform safety boundaries.
+
+The AI agent is scoped to technical and operational support only. It does not provide professional advice, make consequential decisions, or replace qualified human review.
+
+
 **Primary backend deployment: Azure Container Apps**
 
 Live API: https://isic-api-azure.livelybeach-7ed547b8.uksouth.azurecontainerapps.io   
